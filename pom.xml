@@ -111,7 +111,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/arghyagiri/hotel-reservation-system-models</url>
+            <url>https://github.com/arghyagiri/hotel-reservation-system-models/packages/1976178</url>
         </repository>
     </repositories>
 </project>
