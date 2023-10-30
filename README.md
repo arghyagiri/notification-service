@@ -1,5 +1,7 @@
 # Notification Service
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=arghyagiri_notification-service&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=arghyagiri_notification-service)
+
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=arghyagiri_notification-service)](https://sonarcloud.io/summary/new_code?id=arghyagiri_notification-service)
+
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
 [Spring Boot](http://projects.spring.io/spring-boot/) based app.
