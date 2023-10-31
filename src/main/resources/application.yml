@@ -35,11 +35,11 @@ spring:
         smtp:
           auth: false
           starttls.enable: true
-          from: noreply@mybank.com
+          from: noreply@greatcomforthotels.com
 
 
 server:
-  port: 8084
+  port: 8081
   servlet:
     context-path: /
 
@@ -60,7 +60,7 @@ logging:
 spring.cloud.function.definition: notificationProcessor
 spring.cloud.stream:
   bindings:
-    notificationProcessor-in-0.destination: ${spring.application.name}.notificationProcessor
+    notificationProcessor-in-0.destination: notificationProcessor
 
   kafka.streams:
     bindings:
