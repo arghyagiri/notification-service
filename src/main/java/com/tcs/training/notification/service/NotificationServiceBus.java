@@ -2,6 +2,7 @@ package com.tcs.training.notification.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tcs.training.model.notification.NotificationContext;
 import com.tcs.training.model.reservation.Reservation;
 import com.tcs.training.notification.entity.Notification;
 import lombok.RequiredArgsConstructor;
@@ -23,23 +24,17 @@ public class NotificationServiceBus {
 	private final NotificationService notificationService;
 
 	@Bean
-	public Consumer<KStream<UUID, Reservation>> notificationProcessor() {
+	public Consumer<KStream<UUID, NotificationContext>> notificationProcessor() {
 		ObjectMapper objectMapper = new ObjectMapper();
 		return input -> input.peek((k, v) -> {
-			try {
-				notificationService.add(Notification.builder()
-					.message(objectMapper.writeValueAsString(v))
-					.createDate(LocalDate.now())
-					.referenceId(k)
-					.build());
-				notificationService.sendSimpleEmail("customercontact@example.com",
-						"Suspicious Transaction in your account.",
-						"An unusual transaction is noticed in your account. Contact your bank with reference id : "
-								+ k);
-			}
-			catch (JsonProcessingException e) {
-				throw new RuntimeException(e);
-			}
+			notificationService.add(Notification.builder()
+				.message(v.getBody())
+				.createDate(LocalDate.now())
+				.referenceId(k)
+				.build());
+			notificationService.sendSimpleEmail(v.getContext().get("to"),
+					v.getContext().get("sub"),
+					v.getBody());
 		}).peek((uuid, order) -> log.info("Notification processed : {}", order)).map(KeyValue::new);
 	}
 
