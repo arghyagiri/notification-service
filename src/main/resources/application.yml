@@ -1,8 +1,8 @@
 spring:
   application:
-    name: notification-service
+    name: customer-service
   datasource:
-    url: jdbc:h2:mem:notificationDb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:customerDb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driverClassName: org.h2.Driver
     username: admin
     password: admin
@@ -25,18 +25,25 @@ spring:
         enabled: false
     openfeign:
       lazy-attributes-resolution: true
-  mail:
-    host: smtp.freesmtpservers.com
-    port: 25
-    username:
-    password:
-    properties:
-      mail:
-        smtp:
-          auth: false
-          starttls.enable: true
-          from: noreply@mybank.com
-
+  thymeleaf: # Thymeleaf
+    cache: true
+    mode: HTML
+    encoding: UTF-8
+    prefix: classpath:/templates/
+    #prefix: file:src/main/resources/templates/
+  resources: # Static resources
+    static-locations: classpath:/static/,file:./pics/
+    #static-locations: file:src/main/resources/static/
+    cache:
+      period: 0
+    resources:
+    cachecontrol:
+      max-age: 365d
+    chain:
+      strategy:
+        content:
+          enabled: true
+          path: /**
 
 server:
   port: 8084
@@ -57,14 +64,8 @@ logging:
   level:
     .: INFO
 
-spring.cloud.function.definition: notificationProcessor
 spring.cloud.stream:
-  bindings:
-    notificationProcessor-in-0.destination: ${spring.application.name}.notificationProcessor
-
   kafka.streams:
-    bindings:
-      notificationProcessor-in-0.consumer.configuration.application.id: ${spring.application.name}-notificationProcessor
     binder:
       brokers: localhost:9092 # just to use it in the service app, Its already 'localhost:9092' by default
       auto-add-partitions: true
