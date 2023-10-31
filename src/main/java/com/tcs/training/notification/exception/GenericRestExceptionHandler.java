@@ -1,4 +1,4 @@
-package com.tcs.training.customer.exception;
+package com.tcs.training.notification.exception;
 
 import com.tcs.training.model.exception.NoDataFoundException;
 import com.tcs.training.model.exception.Problem;

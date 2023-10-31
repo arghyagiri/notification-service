@@ -1,10 +1,10 @@
-package com.tcs.training.customer;
+package com.tcs.training.notification;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CustomerApplicationTests {
+class NotificationApplicationTests {
 
 	@Test
 	void contextLoads() {
