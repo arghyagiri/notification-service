@@ -1,1 +1,3 @@
-# Hotel Reservation System Domain Models
+# Hotel Reservation System - Notification Service
+
+Handles all notifications to end users.
