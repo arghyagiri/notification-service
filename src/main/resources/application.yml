@@ -80,3 +80,13 @@ spring.cloud.stream:
         default.value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
         commit.interval.ms: 1000
         auto.offset.reset: latest
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8762/eureka}
+    registerWithEureka: true
+    fetchRegistry: true
+  instance:
+    preferIpAddress: false
