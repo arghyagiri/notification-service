@@ -27,14 +27,9 @@ public class NotificationServiceBus {
 	public Consumer<KStream<UUID, NotificationContext>> notificationProcessor() {
 		ObjectMapper objectMapper = new ObjectMapper();
 		return input -> input.peek((k, v) -> {
-			notificationService.add(Notification.builder()
-				.message(v.getBody())
-				.createDate(LocalDate.now())
-				.referenceId(k)
-				.build());
-			notificationService.sendSimpleEmail(v.getContext().get("to"),
-					v.getContext().get("sub"),
-					v.getBody());
+			notificationService
+				.add(Notification.builder().message(v.getBody()).createDate(LocalDate.now()).referenceId(k).build());
+			notificationService.sendSimpleEmail(v.getContext().get("to"), v.getContext().get("sub"), v.getBody());
 		}).peek((uuid, order) -> log.info("Notification processed : {}", order)).map(KeyValue::new);
 	}
 
